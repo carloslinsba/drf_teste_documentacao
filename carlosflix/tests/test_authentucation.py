@@ -29,3 +29,11 @@ class AuthenticationUserTestCase(APITestCase):
         """Verifies if a non authenticated get gets unauhorized"""
         response = self.client.get(self.list_url)
         self.assertEqual( response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_get_product_user_correct_credentials(self):
+        """Verifies get method for products a user with correct credentials is authenticated """
+        self.client.force_authenticate(self.user)
+        response = self.client.get(self.list_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+    
